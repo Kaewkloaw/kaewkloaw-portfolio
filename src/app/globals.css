@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+:root {
+  --page-bg: linear-gradient(to bottom, #071a2f, #0b2a4a, #120b2f);
+  --panel-bg: rgba(255, 255, 255, 0.1);
+  --panel-bg-hover: rgba(255, 255, 255, 0.14);
+  --panel-border: rgba(255, 255, 255, 0.2);
+  --accent-pink: #f9b5d7;
+  --accent-cyan: #a8ecff;
+  --text-muted: rgba(255, 255, 255, 0.62);
+}
+
+html[data-theme="twilight"] {
+  --page-bg: linear-gradient(to bottom, #2b153f, #4a2361, #142845);
+  --panel-bg: rgba(255, 255, 255, 0.08);
+  --panel-bg-hover: rgba(255, 255, 255, 0.12);
+  --panel-border: rgba(255, 255, 255, 0.28);
+  --accent-pink: #ffd1a6;
+  --accent-cyan: #b7ffd9;
+  --text-muted: rgba(255, 241, 229, 0.72);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--page-bg);
+  transition: background 350ms ease;
+}
+
+.theme-surface {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  backdrop-filter: blur(18px);
+  transition:
+    background 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    transform 250ms ease;
+}
+
+.theme-surface:hover {
+  background: var(--panel-bg-hover);
+}
+
+.theme-accent-pink {
+  color: var(--accent-pink);
+}
+
+.theme-subtitle-blush {
+  color: #f6c1d7;
+}
+
+.theme-title-soft-pink {
+  color: #f8ecf4;
+}
+
+.theme-accent-cyan {
+  color: var(--accent-cyan);
+}
+
+.theme-muted {
+  color: var(--text-muted);
+}
+
+.gradient-motion-text {
+  background-image: linear-gradient(
+    90deg,
+    #f8ecf4 0%,
+    #f6c1d7 20%,
+    #ffffff 40%,
+    #f6c1d7 60%,
+    #f8ecf4 80%,
+    #ffffff 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientMotion 5s linear infinite;
+}
+
+.auto-scroll-track {
+  animation-name: auto-scroll-marquee;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+@keyframes floatBubble {
+  0% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-80px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes auto-scroll-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes gradientMotion {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.bubble {
+  animation: floatBubble 5s ease-in-out infinite;
+}
+
+@media (max-width: 430px) {
+  .skills-item {
+    gap: 0.5rem;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .skills-icon {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .skills-label {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+}
