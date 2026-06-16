@@ -34,20 +34,25 @@ function MoonIcon() {
 }
 
 export default function Navbar() {
-  const [themeMode, setThemeMode] = useState<ThemeMode>(() => {
-    if (typeof window === "undefined") {
-      return "ocean";
-    }
-
-    return window.localStorage.getItem(THEME_STORAGE_KEY) === "twilight"
-      ? "twilight"
-      : "ocean";
-  });
+  const [mounted, setMounted] = useState(false);
+  const [themeMode, setThemeMode] = useState<ThemeMode>("ocean");
 
   useEffect(() => {
+    const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+    if (savedTheme === "twilight") {
+      setThemeMode("twilight");
+    }
+
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
+
     document.documentElement.dataset.theme = themeMode;
     window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
-  }, [themeMode]);
+  }, [themeMode, mounted]);
 
   const handleToggleTheme = () => {
     setThemeMode((currentTheme) =>
@@ -55,18 +60,21 @@ export default function Navbar() {
     );
   };
 
+  if (!mounted) return null;
+
   return (
     <nav className="fixed left-0 top-0 z-50 w-full px-4 py-4 sm:px-8 sm:py-5">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
-        {/* Logo */}
         <a
           href="#home"
           className="text-xl italic tracking-wide text-pink-100 sm:text-3xl"
         >
-          Kaewkloaw<span className="ml-1 text-lg not-italic sm:ml-2 sm:text-2xl">🪼</span>
+          Kaewkloaw
+          <span className="ml-1 text-lg not-italic sm:ml-2 sm:text-2xl">
+            🪼
+          </span>
         </a>
 
-        {/* Menu */}
         <div className="theme-surface hidden rounded-full px-8 py-3 shadow-lg shadow-cyan-300/10 md:flex">
           <div className="flex items-center gap-8 text-sm font-medium text-white/90">
             <a className="text-pink-200" href="#home">
@@ -80,11 +88,12 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Toggle */}
         <button
           type="button"
           onClick={handleToggleTheme}
-          aria-label={`Switch to ${themeMode === "ocean" ? "twilight" : "ocean"} theme`}
+          aria-label={`Switch to ${
+            themeMode === "ocean" ? "twilight" : "ocean"
+          } theme`}
           aria-pressed={themeMode === "twilight"}
           className="group relative flex h-10 w-[84px] items-center overflow-hidden rounded-full border border-white/15 p-1 shadow-lg shadow-pink-300/10 transition-transform duration-300 hover:scale-[1.03] sm:h-11 sm:w-[96px]"
           style={{
@@ -94,7 +103,10 @@ export default function Navbar() {
                 : "linear-gradient(135deg, rgba(243, 162, 27, 0.95) 0%, rgba(236, 123, 40, 0.95) 58%, rgba(140, 58, 11, 0.92) 100%)",
           }}
         >
-          <span className="pointer-events-none absolute inset-0 opacity-35" aria-hidden="true">
+          <span
+            className="pointer-events-none absolute inset-0 opacity-35"
+            aria-hidden="true"
+          >
             <span className="absolute left-3 top-2 h-1 w-1 rounded-full bg-white/90" />
             <span className="absolute left-12 top-3 h-1.5 w-1.5 rounded-full bg-white/70" />
             <span className="absolute right-4 top-2 h-1 w-1 rounded-full bg-white/70" />
@@ -120,7 +132,9 @@ export default function Navbar() {
 
           <span
             className={`absolute top-1/2 h-7 w-7 -translate-y-1/2 rounded-full bg-gradient-to-br from-white via-[#fff8f2] to-[#f0e3d3] shadow-[0_10px_20px_rgba(0,0,0,0.22)] transition-transform duration-300 ease-out sm:h-8 sm:w-8 ${
-              themeMode === "ocean" ? "translate-x-0" : "translate-x-[39px] sm:translate-x-[46px]"
+              themeMode === "ocean"
+                ? "translate-x-0"
+                : "translate-x-[39px] sm:translate-x-[46px]"
             }`}
           />
 

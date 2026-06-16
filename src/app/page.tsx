@@ -7,6 +7,7 @@ import Competitions from "@/components/Competitions";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import BackgroundEffects from "@/components/BackgroundEffects";
+import AudioGate from "@/components/AudioGate";
 
 export default function Home() {
   return (
@@ -15,7 +16,9 @@ export default function Home() {
       style={{ background: "var(--page-bg)" }}
     >
       <BackgroundEffects />
+
       <div className="relative z-10">
+        <AudioGate />
         <Navbar />
         <Hero />
         <Skills />
