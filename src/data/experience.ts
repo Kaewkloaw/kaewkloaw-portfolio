@@ -22,7 +22,7 @@ export const experiences = [
   },
   {
     company: "King Mongkut’s University of Technology Thonburi",
-    role: "B.Eng. Computer Engineering | GPA: 3.50",
+    role: "B.Eng. Computer Engineering | GPAX: 3.50",
     period: "2022 – 2026",
     description:
       "Studied Computer Engineering with a strong interest in Generative AI, Computer Vision, and Machine Learning.",
