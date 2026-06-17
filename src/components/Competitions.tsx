@@ -49,7 +49,7 @@ export default function Competitions() {
           <AutoScrollRail
             items={competitions}
             getKey={(item) => item.title}
-            className="pb-4"
+            className=""
             trackClassName="gap-4 sm:gap-6"
             renderItem={(item) => <CompetitionCard item={item} />}
           />
