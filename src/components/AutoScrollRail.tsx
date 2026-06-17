@@ -21,7 +21,7 @@ export default function AutoScrollRail<T>({
   const visibleItems = shouldAutoScroll ? [...items, ...items] : items;
 
   return (
-    <div className={`overflow-hidden py-8 pb-14 ${className}`}>
+    <div className={`overflow-x-hidden overflow-y-visible pt-8 pb-14 ${className}`}>
       <div
         className={`flex ${shouldAutoScroll ? "w-max auto-scroll-track" : "flex-wrap justify-center"} ${trackClassName}`}
         style={

@@ -6,6 +6,22 @@ type ThemeMode = "ocean" | "twilight";
 
 const THEME_STORAGE_KEY = "kaewkloaw-theme";
 
+const THEME_GRADIENTS: Record<ThemeMode, string> = {
+  ocean:
+    "linear-gradient(135deg, rgba(185, 43, 129, 0.95) 0%, rgba(140, 31, 121, 0.95) 58%, rgba(232, 125, 106, 0.9) 100%)",
+  twilight:
+    "linear-gradient(135deg, rgba(243, 162, 27, 0.95) 0%, rgba(236, 123, 40, 0.95) 58%, rgba(140, 58, 11, 0.92) 100%)",
+};
+
+const NAV_LINKS = [
+  { href: "#home", label: "Home", id: "home" },
+  { href: "#skills", label: "Skills", id: "skills" },
+  { href: "#experience", label: "Experience", id: "experience" },
+  { href: "#projects", label: "Projects", id: "projects" },
+  { href: "#competitions", label: "Competitions", id: "competitions" },
+  { href: "#contact", label: "Contact", id: "contact" },
+];
+
 function SunIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -36,28 +52,40 @@ function MoonIcon() {
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [themeMode, setThemeMode] = useState<ThemeMode>("ocean");
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const savedTheme = window.localStorage.getItem(THEME_STORAGE_KEY);
-
-    if (savedTheme === "twilight") {
-      setThemeMode("twilight");
-    }
-
+    if (savedTheme === "twilight") setThemeMode("twilight");
     setMounted(true);
   }, []);
 
   useEffect(() => {
     if (!mounted) return;
-
     document.documentElement.dataset.theme = themeMode;
     window.localStorage.setItem(THEME_STORAGE_KEY, themeMode);
   }, [themeMode, mounted]);
 
-  const handleToggleTheme = () => {
-    setThemeMode((currentTheme) =>
-      currentTheme === "ocean" ? "twilight" : "ocean",
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
     );
+
+    NAV_LINKS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleToggleTheme = () => {
+    setThemeMode((current) => (current === "ocean" ? "twilight" : "ocean"));
   };
 
   if (!mounted) return null;
@@ -76,32 +104,28 @@ export default function Navbar() {
         </a>
 
         <div className="theme-surface hidden rounded-full px-8 py-3 shadow-lg shadow-cyan-300/10 md:flex">
-          <div className="flex items-center gap-8 text-sm font-medium text-white/90">
-            <a className="text-pink-200" href="#home">
-              Home
-            </a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
-            <a href="#competitions">Competitions</a>
-            <a href="#contact">Contact</a>
+          <div className="flex items-center gap-8 text-sm font-medium">
+            {NAV_LINKS.map(({ href, label, id }) => (
+              <a
+                key={id}
+                href={href}
+                className={`transition-all duration-200 hover:-translate-y-0.5 hover:text-yellow-200 ${
+                  activeSection === id ? "text-yellow-200" : "text-white/80"
+                }`}
+              >
+                {label}
+              </a>
+            ))}
           </div>
         </div>
 
         <button
           type="button"
           onClick={handleToggleTheme}
-          aria-label={`Switch to ${
-            themeMode === "ocean" ? "twilight" : "ocean"
-          } theme`}
+          aria-label={`Switch to ${themeMode === "ocean" ? "twilight" : "ocean"} theme`}
           aria-pressed={themeMode === "twilight"}
           className="group relative flex h-10 w-[84px] items-center overflow-hidden rounded-full border border-white/15 p-1 shadow-lg shadow-pink-300/10 transition-transform duration-300 hover:scale-[1.03] sm:h-11 sm:w-[96px]"
-          style={{
-            background:
-              themeMode === "ocean"
-                ? "linear-gradient(135deg, rgba(185, 43, 129, 0.95) 0%, rgba(140, 31, 121, 0.95) 58%, rgba(232, 125, 106, 0.9) 100%)"
-                : "linear-gradient(135deg, rgba(243, 162, 27, 0.95) 0%, rgba(236, 123, 40, 0.95) 58%, rgba(140, 58, 11, 0.92) 100%)",
-          }}
+          style={{ background: THEME_GRADIENTS[themeMode] }}
         >
           <span
             className="pointer-events-none absolute inset-0 opacity-35"

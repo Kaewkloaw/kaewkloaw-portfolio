@@ -1,9 +1,4 @@
-import {
-  FaEnvelope,
-  FaGithub,
-  FaLinkedin,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { FaEnvelope, FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Contact() {
   return (

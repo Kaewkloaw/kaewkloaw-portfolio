@@ -1,20 +1,16 @@
 import { experiences } from "@/data/experience";
+import SectionHeader from "./SectionHeader";
 
 export default function Experience() {
   return (
     <section id="experience" className="relative px-4 py-20 sm:px-6 sm:py-24">
       <div className="mx-auto max-w-5xl">
-        <div className="mb-12 text-center sm:mb-14">
-          <p className="theme-subtitle-blush text-sm sm:text-base">My Journey 🫧</p>
-
-          <h2 className="mt-2 text-3xl font-bold theme-title-soft-pink sm:text-4xl lg:text-5xl">
-            Experience
-          </h2>
-
-          <p className="mt-4 text-sm theme-subtitle-blush sm:text-base">
-            Work, education, and professional growth
-          </p>
-        </div>
+        <SectionHeader
+          subtitle="My Journey 🫧"
+          title="Experience"
+          description="Work, education, and professional growth"
+          className="mb-12 text-center sm:mb-14"
+        />
 
         <div className="relative">
           <div
@@ -26,18 +22,18 @@ export default function Experience() {
           />
 
           <div className="space-y-8 sm:space-y-10">
-            {experiences.map((item, index) => (
+            {experiences.map((item, index) => {
+              const isEven = index % 2 === 0;
+              return (
               <div
                 key={item.company}
                 className={`relative grid gap-4 sm:gap-6 max-[754px]:block max-[754px]:space-y-4 md:grid-cols-2 ${
-                  index % 2 === 0 ? "" : "md:text-right"
+                  isEven ? "" : "md:text-right"
                 }`}
               >
                 <div
                   className={`rounded-[28px] border border-white/20 bg-white/10 p-6 shadow-xl backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-pink-200/40 hover:bg-pink-300/10 ${
-                    index % 2 === 0
-                      ? "md:mr-10"
-                      : "md:col-start-2 md:ml-10"
+                    isEven ? "md:mr-10" : "md:col-start-2 md:ml-10"
                   }`}
                 >
                   <p className="text-xs font-medium theme-accent-cyan sm:text-sm">
@@ -62,7 +58,8 @@ export default function Experience() {
                   style={{ borderColor: "var(--page-bg)" }}
                 />
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
