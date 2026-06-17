@@ -31,14 +31,20 @@ export default function Hero() {
 
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center md:justify-start">
             <a
-              href="#projects"
+              href="/document/CV_Punchaya_Chancharoen.pdf"
+              download="CV_Punchaya_Chancharoen.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-pink-300 px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-pink-300/30 transition-all duration-300 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:bg-pink-200 hover:shadow-2xl hover:shadow-pink-300/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071A2F] sm:px-8 sm:py-4 sm:text-base"
             >
               <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/45 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-full" />
               <span className="relative flex items-center gap-2">
-                <span>View My Work</span>
                 <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">
-                  🪼
+                  🧜🏻
+                </span>
+                <span>Download CV</span>
+                <span className="transition-transform duration-300 ease-out group-hover:translate-x-1">
+                  🪸
                 </span>
               </span>
             </a>
