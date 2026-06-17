@@ -13,7 +13,7 @@ export default function Hero() {
         <div className="max-w-3xl text-center md:text-left">
           <p className="mb-3 text-base text-pink-200 sm:text-xl">Hi, I&apos;m</p>
 
-          <h1 className="gradient-motion-text text-4xl font-bold leading-none sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="liquid-pink-text text-4xl font-black leading-none sm:text-5xl md:text-6xl lg:text-7xl">
             Kaewkloaw
           </h1>
 
