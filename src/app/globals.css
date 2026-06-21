@@ -146,11 +146,13 @@ body {
   animation: liquidFlow 8s ease-in-out infinite;
 }
 
-.auto-scroll-track {
-  animation-name: auto-scroll-marquee;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  will-change: transform;
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .bubble {
@@ -196,16 +198,6 @@ body {
   100% {
     transform: translateY(-80px);
     opacity: 0.2;
-  }
-}
-
-@keyframes auto-scroll-marquee {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-50%, 0, 0);
   }
 }
 
