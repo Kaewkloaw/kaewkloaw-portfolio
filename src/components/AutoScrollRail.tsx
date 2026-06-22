@@ -13,7 +13,7 @@ type AutoScrollRailProps<T> = {
 };
 
 const COPIES = 3;
-const PX_PER_SEC = 50;
+const PX_PER_SEC = 100;
 const DRAG_THRESHOLD = 4;
 const FLICK_DISTANCE_MULTIPLIER = 450;
 const FLICK_DURATION = 450;
@@ -163,6 +163,7 @@ export default function AutoScrollRail<T>({
     const vp = viewportRef.current;
     if (!vp) return;
     cancelFlick();
+    setIsPaused(true);
     pointerIdRef.current = e.pointerId;
     dragStartXRef.current = e.clientX;
     dragScrollStartRef.current = vp.scrollLeft;
@@ -195,6 +196,8 @@ export default function AutoScrollRail<T>({
     vp?.releasePointerCapture(e.pointerId);
     pointerIdRef.current = null;
     setIsDragging(false);
+    setIsPaused(false);
+    lastTimeRef.current = null;
     if (vp) launchFlick(vp);
   };
 
@@ -218,17 +221,6 @@ export default function AutoScrollRail<T>({
   return (
     <div
       className={`overflow-x-hidden overflow-y-visible ${className}`}
-      onMouseEnter={() => {
-        cancelFlick();
-        setIsPaused(true);
-      }}
-      onMouseLeave={() => {
-        cancelFlick();
-        lastTimeRef.current = null;
-        pointerIdRef.current = null;
-        setIsDragging(false);
-        setIsPaused(false);
-      }}
     >
       <div
         ref={viewportRef}
